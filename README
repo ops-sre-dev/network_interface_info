@@ -1,0 +1,69 @@
+This README provides guidance on setting up, building, and testing the network_interface_info plugin for Telegraf. The plugin is designed to gather information about network interfaces, including link status, IP address, and routing information, with options for IPv4 and IPv6.
+
+Setup and Build Instructions
+Prerequisites
+Ensure you have Go installed and set up on your system. This plugin requires Go 1.16 or later. You can download Go from the official Go website.
+
+Initializing the Module
+Start by initializing a new Go module for your plugin:
+
+```bash
+go mod init github.com/yourusername/network_interface_info
+```
+Repeat the command to ensure all dependencies are correctly initialized:
+
+bash
+Copy code
+go mod init
+Building the Plugin
+Compile your plugin with the go build command. Run this in the root directory of your plugin:
+
+bash
+Copy code
+go build
+This command compiles the source code and generates an executable file named after your plugin's directory.
+
+Installation and Testing
+Placing Plugin in Telegraf
+Clone the Telegraf repository from InfluxData's GitHub.
+
+Navigate to the Telegraf plugins directory:
+
+bash
+Copy code
+cd telegraf/plugins/inputs
+Create a directory for your plugin:
+
+bash
+Copy code
+mkdir network_interface_info
+cd network_interface_info
+Place your plugin files (network_interface_info.go, gather.go, init.go, and any other necessary files) into this directory.
+
+Integrating Plugin with Telegraf
+After placing your plugin in the correct directory, you need to register it with Telegraf. Ensure your init.go file contains the appropriate inputs.Add function call to register the plugin.
+
+Rebuild Telegraf to include your plugin:
+
+bash
+Copy code
+cd /path/to/telegraf
+make
+This command compiles Telegraf along with your new plugin.
+
+Testing Your Plugin
+Create a Telegraf configuration file for testing. You can start with Telegraf's default configuration file and add a section for your plugin:
+
+toml
+Copy code
+[[inputs.network_interface_info]]
+# Configuration options for your plugin
+Run Telegraf with your configuration file:
+
+bash
+Copy code
+telegraf --config your_config_file.toml
+Replace your_config_file.toml with the path to your configuration file. Telegraf will start and include your plugin in its data collection process.
+
+Conclusion
+After completing these steps, you should be able to build, install, and test your network_interface_info plugin within the Telegraf framework. This includes compiling the Telegraf binary file and specifying your plugin and its configuration within the Telegraf configuration file. Ensure your Go environment is correctly set up and that your plugin code is compatible with the rest of the Telegraf project.
